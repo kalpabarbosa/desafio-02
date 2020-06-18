@@ -57,7 +57,21 @@ app.put("/repositories/:id", (request, response) => {
 });
 
 app.delete("/repositories/:id", (request, response) => {
-  // TODO
+  const { id } = request.params;
+
+  if(!isUuid(id)) {
+    return response.status(400).json({ message: "Invalid UUID" });
+  }
+
+  const repository = repositories.find(repository => repository.id === id);
+
+  if(!repository) {
+    return response.status(404).json({ message: "Repository not found" });
+  }
+
+  repositories.pop(repository);
+
+  return response.send();
 });
 
 app.post("/repositories/:id/like", (request, response) => {
