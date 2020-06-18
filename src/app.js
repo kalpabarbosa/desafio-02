@@ -71,7 +71,7 @@ app.delete("/repositories/:id", (request, response) => {
 
   repositories.pop(repository);
 
-  return response.send();
+  return response.status(204).send();
 });
 
 app.post("/repositories/:id/like", (request, response) => {
